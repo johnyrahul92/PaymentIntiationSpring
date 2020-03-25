@@ -1,4 +1,4 @@
-package com.gbk.h2h.inputprocessor.beans;
+package com.gbk.beans;
 
 public class BeanClass {
 

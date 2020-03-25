@@ -1,14 +1,14 @@
-package com.gbk.h2h;
+package com.gbk;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class H2hApplication {
+public class PaymentIntiation {
 
 	public static void main(String[] args) {
 		System.out.println("hi");
-		SpringApplication.run(H2hApplication.class, args);
+		SpringApplication.run(PaymentIntiation.class, args);
 	}
 
 }
