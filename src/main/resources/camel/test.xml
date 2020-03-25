@@ -1,0 +1,16 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+
+
+
+	<route id="test" streamCache="true">
+		<from uri="direct:test" />
+		<log message="Test route haha"/>       
+
+		
+	</route>
+
+
+
+
+
+</routes>

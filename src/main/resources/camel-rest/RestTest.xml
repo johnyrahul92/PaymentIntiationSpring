@@ -1,0 +1,12 @@
+<rests xmlns="http://camel.apache.org/schema/spring" >
+	<rest  bindingMode="auto" >
+
+	
+
+		<get uri="test" >
+			<to uri="direct:test" />
+		</get>
+		
+		
+	</rest>
+</rests>
