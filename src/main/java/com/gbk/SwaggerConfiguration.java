@@ -34,62 +34,57 @@ public class SwaggerConfiguration {
     /** The string. */
     private static final String STRING = "string";
 
-    /**
-     * The method to Api.
-     *
-     * @return the docket
-     */
     @Bean
-    public Docket internalApiDocket() {
+    public ApiInfo beneficiaryApiInfo() {
+        final ApiInfoBuilder builder = new ApiInfoBuilder()
+                .title("Payment Initiation API definitions through Swagger UI")
+                .version("1.0")
+                .license("(C) Copyright Test")
+                .description("List of beneficiary APIs");
+        return builder.build();
+    }
+
+    @Bean
+    public Docket beneficiaryApiDocket() {
         List<Parameter> internalAPI = new ArrayList<>();
         ParameterBuilder params = new ParameterBuilder();
 
-        internalAPI.add(params.name("requestId").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).build());
+        internalAPI.add(params.name("x-fapi-interaction-id").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).description("Interaction Id").build());
 
-        internalAPI.add(params.name("sessionId").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).build());
+        internalAPI.add(params.name("x-fapi-session-id").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).description("Session Id").build());
 
-        internalAPI.add(params.name("channelCode").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).build());
+        internalAPI.add(params.name("customer-no").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).description("Customer Number").build());
 
-        internalAPI.add(params.name("userName").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).build());
+        internalAPI.add(params.name("channel").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(true).description("Channel").build());
+
+        internalAPI.add(params.name("x-fapi-user-id").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("User Id").build());
+
+        internalAPI.add(params.name("x-fapi-user-role").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("User Role").build());
+
+        internalAPI.add(params.name("authorization-token").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("Authorization Token").build());
+
+        internalAPI.add(params.name("x-fapi-customer-ip-address").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("IP Address of the client").build());
+
+        internalAPI.add(params.name("idempotency-Key").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("Idempotency Key").build());
+
+        internalAPI.add(params.name("jwt-Token").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("JWT Token").build());
+
+        internalAPI.add(params.name("content-language").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("Content language").build());
+
+        internalAPI.add(params.name("content-type").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("Content type").build());
+
+        internalAPI.add(params.name("accept").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("Accept Type").build());
+
+        internalAPI.add(params.name("x-fapi-customer-last-logged-time").modelRef(new ModelRef(STRING)).parameterType(HEADER).required(false).description("Last logged time of the client").build());
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                .paths(PathSelectors.regex("/InputProcessor.*"))
+                .paths(PathSelectors.regex("/v1/payment-initiation.*"))
                 .build().pathMapping("/")
-                .apiInfo(internalApiInfo())
-                .groupName("InputProcessor")
+                .apiInfo(beneficiaryApiInfo())
+                .groupName("paymentInitiation")
                 .useDefaultResponseMessages(false)
                 .globalOperationParameters(internalAPI);
-    }
-
-    /**
-     * The method to Api info.
-     *
-     * @return the api info
-     */
-    @Bean
-    public ApiInfo internalApiInfo() {
-        final ApiInfoBuilder builder = new ApiInfoBuilder()
-                .title("INPUT PROCESSOR through Swagger UI")
-                .version("1.0")
-                .license("(C) Copyright Test")
-                .description("List of all the APIs of IN PUT PROCESSOR App through Swagger UI");
-        return builder.build();
-    }
-
-    /**
-     * The method to Api info.
-     *
-     * @return the api info
-     */
-    @Bean
-    public ApiInfo apificationInfo() {
-        final ApiInfoBuilder builder = new ApiInfoBuilder()
-                .title("GBK Corporate Services through Swagger UI")
-                .version("1.0")
-                .license("(C) Copyright Test")
-                .description("List of all the APIs of Corporate Bulk Processing API through Swagger UI");
-        return builder.build();
     }
 }

@@ -1,16 +1,26 @@
 <routes xmlns="http://camel.apache.org/schema/spring">
 
+	<!--To activate beneficiary-->
+	<route id="activateBeneficiary" streamCache="true">
+		<from uri="direct:activateBeneficiary" />
+		<removeHeaders pattern="*" excludePattern="x-fapi-interaction-id|x-fapi-session-id|customer-no|channel|x-fapi-user-id|x-fapi-user-role|authorization-token|x-fapi-customer-ip-address|idempotency-Key|jwt-Token|content-language|content-type|accept|x-fapi-customer-last-logged-time"/>
 
+		<log message="=================CAMEL XML=============="/>
+		<log message="BODY = ${body}"/>
+		<log message="Header = ${headers}"/>
+		<log message="Customer Number = ${header.customer-no}"/>
+		<log message="=================CAMEL XML=============="/>
 
-	<route id="test" streamCache="true">
-		<from uri="direct:test" />
-		<log message="Test route haha"/>       
-
-		
+		<setBody>
+			<simple>
+				{
+				"message": "Success Message",
+				"statusCode": "0",
+				"statusDescription": "SUCCESS",
+				"transactionReferenceNo": "000000"
+				}
+			</simple>
+		</setBody>
 	</route>
-
-
-
-
 
 </routes>
